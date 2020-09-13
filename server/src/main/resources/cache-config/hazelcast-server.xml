@@ -9,6 +9,8 @@
     <password>dev-pass</password>
   </group>
 
+  <management-center enabled="true">http://localhost:8090/hazelcast-mancenter</management-center>
+
   <network>
     <port port-count="3">5701</port>
     <outbound-ports>
