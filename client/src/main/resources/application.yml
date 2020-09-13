@@ -1,0 +1,10 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1/hz/client
+
+spring:
+  application:
+    name: Hazecast-Client
+  hazelcast:
+    config: 'classpath:cache-config/hazelcast-client.xml'

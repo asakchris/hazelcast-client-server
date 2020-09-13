@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: Hazecast-Server
+  hazelcast:
+    config: 'classpath:cache-config/hazelcast-server.xml'
