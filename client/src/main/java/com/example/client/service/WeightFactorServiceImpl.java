@@ -42,7 +42,7 @@ public class WeightFactorServiceImpl implements WeightFactorService {
     // results in a list
     final CompletableFuture<List<Portfolio>> allPortfolioFuture =
         allFutures.thenApply(
-            v -> portfolioFutures.stream().map(future -> future.join()).collect(toList()));
+            v -> portfolioFutures.stream().map(CompletableFuture::join).collect(toList()));
     // Store the computed weight factor in cache
     allPortfolioFuture.thenAccept(
         pfs -> {
