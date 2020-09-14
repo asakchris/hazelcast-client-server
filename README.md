@@ -8,6 +8,7 @@ Interact with Hazelcast using Spring data access technologies. Refer [StockServi
 
 ##### Spring Cache Manager
 Interact with Hazelcast using Spring cache manager. Refer [StockExchangeServiceImpl](client/src/main/java/com/example/client/service/StockExchangeServiceImpl.java) for more details.
+Refer [WeightFactorServiceImpl](client/src/main/java/com/example/client/service/WeightFactorServiceImpl.java) for asynchronous calculation using Completable Future. 
 
 ### Run
 ##### Hazelcast Management Center

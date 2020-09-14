@@ -225,6 +225,78 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Weight Factor",
+			"item": [
+				{
+					"name": "Trigger Weight Factor Calculation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3ede457b-ee54-423d-b7ef-ac02dd0c57b5",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"requestId\", jsonData.requestId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hz/client/weight-factors/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hz",
+								"client",
+								"weight-factors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Weight Factor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/hz/client/weight-factors?requestId={{requestId}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"hz",
+								"client",
+								"weight-factors"
+							],
+							"query": [
+								{
+									"key": "requestId",
+									"value": "{{requestId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}

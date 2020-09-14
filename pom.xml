@@ -16,7 +16,10 @@
   </parent>
 
   <properties>
+    <hazelcast-client.version>3.12.8</hazelcast-client.version>
+    <spring-data-hazelcast.version>2.2.5</spring-data-hazelcast.version>
     <vavr.version>0.10.3</vavr.version>
+    <commons-collections4.version>4.4</commons-collections4.version>
   </properties>
 
   <modules>
@@ -29,17 +32,22 @@
       <dependency>
         <groupId>com.hazelcast</groupId>
         <artifactId>hazelcast-client</artifactId>
-        <version>3.12.8</version>
+        <version>${hazelcast-client.version}</version>
       </dependency>
       <dependency>
         <groupId>com.hazelcast</groupId>
         <artifactId>spring-data-hazelcast</artifactId>
-        <version>2.2.5</version>
+        <version>${spring-data-hazelcast.version}</version>
       </dependency>
       <dependency>
         <groupId>io.vavr</groupId>
         <artifactId>vavr</artifactId>
         <version>${vavr.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>${commons-collections4.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

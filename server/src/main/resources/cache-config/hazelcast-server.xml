@@ -39,4 +39,11 @@
     <max-idle-seconds>0</max-idle-seconds>
     <time-to-live-seconds>86400</time-to-live-seconds>
   </map>
+
+  <map name="portfolio-weight-factor-cache">
+    <max-size>20000</max-size>
+    <eviction-policy>LFU</eviction-policy>
+    <max-idle-seconds>0</max-idle-seconds>
+    <time-to-live-seconds>86400</time-to-live-seconds>
+  </map>
 </hazelcast>
