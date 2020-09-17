@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import com.example.client.model.Portfolio;
 import com.example.client.util.PortfolioUtil;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ForkJoinPool;
 import lombok.extern.slf4j.Slf4j;
@@ -43,15 +44,17 @@ public class WeightFactorServiceImpl implements WeightFactorService {
     final CompletableFuture<List<Portfolio>> allPortfolioFuture =
         allFutures.thenApply(
             v -> portfolioFutures.stream().map(CompletableFuture::join).collect(toList()));
-    // Store the computed weight factor in cache
-    allPortfolioFuture.thenAccept(
-        pfs -> {
-          log.info(
-              "About to cache weight factor: requestId: {}, size: {}",
-              requestId,
-              CollectionUtils.size(pfs));
-          cacheService.addToCache(CACHE_NAME, requestId, pfs);
-        });
+    // Store the computed weight factor in cache after calculation is complete
+    allPortfolioFuture
+        .whenComplete((pfs, throwable) -> handleExceptionIfAny(throwable))
+        .thenAccept(
+            pfs -> {
+              log.info(
+                  "About to cache weight factor: requestId: {}, size: {}",
+                  requestId,
+                  CollectionUtils.size(pfs));
+              cacheService.addToCache(CACHE_NAME, requestId, pfs);
+            });
   }
 
   @Override
@@ -66,12 +69,7 @@ public class WeightFactorServiceImpl implements WeightFactorService {
 
   private Portfolio marketCapCalc(Portfolio portfolio) {
     log.debug("marketCapCalc: StockId: {}", portfolio.getStockId());
-    return Portfolio.builder()
-        .stockId(portfolio.getStockId())
-        .shares(portfolio.getShares())
-        .price(portfolio.getPrice())
-        .marketCap(portfolio.getShares() * portfolio.getPrice())
-        .build();
+    return portfolio.toBuilder().marketCap(portfolio.getShares() * portfolio.getPrice()).build();
   }
 
   private Portfolio weightFactorCalc(Portfolio portfolio) {
@@ -81,12 +79,10 @@ public class WeightFactorServiceImpl implements WeightFactorService {
             Math.tan(
                 Math.tan(
                     Math.tan(Math.tan(Math.tan(Math.tan(Math.tan(portfolio.getMarketCap()))))))));
-    return Portfolio.builder()
-        .stockId(portfolio.getStockId())
-        .shares(portfolio.getShares())
-        .price(portfolio.getPrice())
-        .marketCap(portfolio.getShares() * portfolio.getPrice())
-        .weightFactor(weightFactor)
-        .build();
+    return portfolio.toBuilder().weightFactor(weightFactor).build();
+  }
+
+  private static void handleExceptionIfAny(Throwable throwable) {
+    Optional.ofNullable(throwable).ifPresent(th -> log.error("Exception while processing: ", th));
   }
 }

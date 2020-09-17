@@ -12,7 +12,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 
 @Builder(toBuilder = true)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
@@ -24,7 +23,7 @@ import org.springframework.data.annotation.Id;
 public class StockExchange implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @Id @EqualsAndHashCode.Include private String stockExchangeId = UUID.randomUUID().toString();
+  @EqualsAndHashCode.Include private String stockExchangeId = UUID.randomUUID().toString();
 
   @NotBlank(message = "stockExchangeName cannot be blank")
   @Size(min = 3, max = 100, message = "minimum 3 characters and maximum 100 characters in length")
