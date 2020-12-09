@@ -7,6 +7,16 @@
     <password>dev-pass</password>
   </group>
 
+  <connection-strategy reconnect-mode="ASYNC" async-start="true">
+    <connection-retry enabled="true">
+      <initial-backoff-millis>1000</initial-backoff-millis>
+      <max-backoff-millis>30000</max-backoff-millis>
+      <fail-on-max-backoff>false</fail-on-max-backoff>
+      <multiplier>2</multiplier>
+      <jitter>0.2</jitter>
+    </connection-retry>
+  </connection-strategy>
+
   <network>
     <cluster-members>
       <address>127.0.0.1</address>
