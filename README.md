@@ -13,10 +13,10 @@ Refer [WeightFactorServiceImpl](client/src/main/java/com/example/client/service/
 ### Run
 ##### Hazelcast Management Center
 Follow below steps to run Hazelcast Management Center:
-1. Download Hazelcast Management Center zip file using this [link](https://download.hazelcast.com/management-center/hazelcast-management-center-3.12.8.zip)
-1. Extract zip file and copy `hazelcast-mancenter-3.12.8.war` file to a folder called `hazelcast-mancenter`
-1. Change directory to `hazelcast-mancenter`
-1. Run `java -jar hazelcast-mancenter-3.12.8.war 8090 hazelcast-mancenter` command to start Hazelcast Management Center
+1. Download Hazelcast Management Center (version 4) zip file using this [link](https://download.hazelcast.com/management-center/hazelcast-management-center-4.2020.12.zip)
+1. Extract zip file to a folder called `hazelcast-mancenter-4`
+1. Change directory to `hazelcast-mancenter-4`
+1. Run `java -Dhazelcast.mc.http.port=8090 -Dhazelcast.mc.contextPath=hazelcast-mancenter -jar hazelcast-management-center-4.2020.12.jar` command to start Hazelcast Management Center
 1. Access Hazelcast Management Center using this [link](http://localhost:8090/hazelcast-mancenter)
 
 ##### Hazelcast Server

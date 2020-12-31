@@ -1,25 +1,23 @@
 <hazelcast-client xmlns="http://www.hazelcast.com/schema/client-config"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.hazelcast.com/schema/client-config
-                  http://www.hazelcast.com/schema/client-config/hazelcast-client-config-3.12.xsd">
-  <group>
-    <name>dev</name>
-    <password>dev-pass</password>
-  </group>
-
-  <connection-strategy reconnect-mode="ASYNC" async-start="true">
-    <connection-retry enabled="true">
-      <initial-backoff-millis>1000</initial-backoff-millis>
-      <max-backoff-millis>30000</max-backoff-millis>
-      <fail-on-max-backoff>false</fail-on-max-backoff>
-      <multiplier>2</multiplier>
-      <jitter>0.2</jitter>
-    </connection-retry>
-  </connection-strategy>
+                  http://www.hazelcast.com/schema/client-config/hazelcast-client-config-4.0.xsd">
+  <cluster-name>dev-hz-cluster</cluster-name>
+  <instance-name>dev-client</instance-name>
 
   <network>
     <cluster-members>
       <address>127.0.0.1</address>
     </cluster-members>
   </network>
+
+  <connection-strategy async-start="true" reconnect-mode="ASYNC">
+    <connection-retry>
+      <initial-backoff-millis>2000</initial-backoff-millis>
+      <max-backoff-millis>60000</max-backoff-millis>
+      <multiplier>3</multiplier>
+      <cluster-connect-timeout-millis>5000</cluster-connect-timeout-millis>
+      <jitter>0.5</jitter>
+    </connection-retry>
+  </connection-strategy>
 </hazelcast-client>
